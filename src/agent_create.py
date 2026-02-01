@@ -59,6 +59,29 @@ def create_portfolio_agent() -> Agent:
     return agent
 
 
+def create_portfolio_agent_with_style(style_instruction: str) -> Agent:
+    """
+    Crée et configure l'agent portfolio avec un style de personnalité spécifique.
+    
+    :param style_instruction: Instructions de style pour la personnalité de l'agent
+    :type style_instruction: str
+    :return: Instance de l'agent configuré
+    :rtype: Agent
+    """
+    agent = Agent(
+        name="Portfolio Assistant",
+        instructions=(
+            f"{style_instruction}\n\n"
+            "Tu réponds à des questions sur mon portfolio. "
+            "Utilise l'outil search_portfolio pour trouver des informations pertinentes. "
+            "Réponds en français de manière claire et précise tout en conservant le style demandé."
+        ),
+        model="gpt-4o-mini",
+        tools=[search_portfolio]
+    )
+    return agent
+
+
 async def main():
     """
     Pipeline complet : indexation puis interaction avec l'agent.
